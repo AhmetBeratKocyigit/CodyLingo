@@ -32,20 +32,34 @@ function computeStreak(events) {
 }
 
 function buildSvg(streak, username) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="200" viewBox="0 0 420 200">
+  const safeUsername = String(username || 'octocat')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  const mascotUrl = 'https://raw.githubusercontent.com/AhmetBeratKocyigit/CodyLingo/main/public/duo.png';
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="200" viewBox="0 0 420 200" role="img" aria-label="CodyLingo streak widget">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="#4ac0e8"/>
       <stop offset="100%" stop-color="#30cf7c"/>
     </linearGradient>
   </defs>
+
   <rect width="420" height="200" rx="30" fill="url(#bg)"/>
-  <circle cx="53" cy="40" r="20" fill="rgba(255,255,255,0.12)"/>
-  <text x="37" y="50" font-size="28">🔥</text>
-  <text x="370" y="70" text-anchor="end" font-size="56" font-weight="800" fill="#fff">${streak}</text>
-  <text x="210" y="120" text-anchor="middle" font-size="26" font-weight="700" fill="#fff">Time to code, ${username}!</text>
-  <rect x="148" y="142" width="124" height="32" rx="16" fill="rgba(15,23,42,0.16)"/>
-  <text x="210" y="163" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" letter-spacing="1.5">DAILY STREAK</text>
+  <circle cx="53" cy="40" r="18" fill="rgba(255,255,255,0.12)"/>
+  <text x="42" y="48" font-size="26" font-family="Arial, Helvetica, sans-serif">🔥</text>
+
+  <text x="365" y="76" text-anchor="end" font-size="62" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
+
+  <text x="190" y="120" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
+
+  <rect x="148" y="138" width="124" height="30" rx="15" fill="rgba(15,23,42,0.16)"/>
+  <text x="210" y="159" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff" letter-spacing="1.3" font-family="Arial, Helvetica, sans-serif">DAILY STREAK</text>
+
+  <image href="${mascotUrl}" x="270" y="92" width="110" height="110" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
