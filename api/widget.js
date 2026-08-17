@@ -40,26 +40,39 @@ function buildSvg(streak, username) {
 
   const mascotUrl = 'https://raw.githubusercontent.com/AhmetBeratKocyigit/CodyLingo/main/public/duo.png';
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="200" viewBox="0 0 420 200" role="img" aria-label="CodyLingo streak widget">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="220" viewBox="0 0 420 220" role="img" aria-label="CodyLingo streak widget">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#4ac0e8"/>
-      <stop offset="100%" stop-color="#30cf7c"/>
+      <stop offset="0%" stop-color="#52c3eb"/>
+      <stop offset="100%" stop-color="#45d0a7"/>
     </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="rgba(0,0,0,0.12)"/>
+    </filter>
   </defs>
 
-  <rect width="420" height="200" rx="30" fill="url(#bg)"/>
-  <circle cx="53" cy="40" r="18" fill="rgba(255,255,255,0.12)"/>
-  <text x="42" y="48" font-size="26" font-family="Arial, Helvetica, sans-serif">🔥</text>
+  <rect width="420" height="220" rx="36" fill="url(#bg)"/>
 
-  <text x="365" y="76" text-anchor="end" font-size="62" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
+  <g fill="rgba(255,255,255,0.8)">
+    <rect x="28" y="148" width="10" height="10" rx="2" transform="rotate(-18 28 148)"/>
+    <rect x="64" y="132" width="12" height="12" rx="3" transform="rotate(18 64 132)"/>
+    <rect x="318" y="140" width="10" height="10" rx="2" transform="rotate(12 318 140)"/>
+    <rect x="348" y="128" width="12" height="12" rx="3" transform="rotate(-18 348 128)"/>
+    <circle cx="322" cy="52" r="5"/>
+    <circle cx="110" cy="66" r="5"/>
+    <circle cx="80" cy="186" r="4"/>
+    <circle cx="350" cy="182" r="4"/>
+  </g>
 
-  <text x="190" y="120" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
+  <g filter="url(#softShadow)">
+    <circle cx="210" cy="42" r="20" fill="rgba(255,255,255,0.08)"/>
+    <text x="210" y="52" text-anchor="middle" font-size="34" font-family="Arial, Helvetica, sans-serif">🔥</text>
+  </g>
 
-  <rect x="148" y="138" width="124" height="30" rx="15" fill="rgba(15,23,42,0.16)"/>
-  <text x="210" y="159" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff" letter-spacing="1.3" font-family="Arial, Helvetica, sans-serif">DAILY STREAK</text>
+  <text x="210" y="105" text-anchor="middle" font-size="68" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
+  <text x="210" y="160" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
 
-  <image href="${mascotUrl}" x="270" y="92" width="110" height="110" preserveAspectRatio="xMidYMid meet"/>
+  <image href="${mascotUrl}" x="100" y="100" width="220" height="150" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
