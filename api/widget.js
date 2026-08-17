@@ -69,7 +69,7 @@ function buildSvg(streak, username) {
   <text x="210" y="138" text-anchor="middle" font-size="80" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
   <text x="210" y="196" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
 
-  <image href="${mascotUrl}" x="70" y="215" width="280" height="180" preserveAspectRatio="xMidYMid meet"/>
+  <image href="${mascotUrl}" x="65" y="230" width="290" height="185" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
