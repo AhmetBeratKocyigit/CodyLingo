@@ -40,7 +40,7 @@ function buildSvg(streak, username) {
 
   const mascotUrl = 'https://raw.githubusercontent.com/AhmetBeratKocyigit/CodyLingo/main/public/duo.png';
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="220" viewBox="0 0 420 220" role="img" aria-label="CodyLingo streak widget">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="500" viewBox="0 0 420 220" role="img" aria-label="CodyLingo streak widget">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="#51c4ea"/>
