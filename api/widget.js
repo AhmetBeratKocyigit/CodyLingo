@@ -40,34 +40,36 @@ function buildSvg(streak, username) {
 
   const mascotUrl = 'https://raw.githubusercontent.com/AhmetBeratKocyigit/CodyLingo/main/public/duo.png';
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="500" viewBox="0 0 420 500" role="img" aria-label="CodyLingo streak widget">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420" role="img" aria-label="CodyLingo streak widget">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="#51c4ea"/>
-      <stop offset="100%" stop-color="#44cca7"/>
+      <stop offset="100%" stop-color="#45d0a6"/>
     </linearGradient>
   </defs>
 
-  <rect width="420" height="500" rx="36" fill="url(#bg)"/>
+  <rect width="420" height="420" rx="34" fill="url(#bg)"/>
 
   <g fill="rgba(255,255,255,0.8)">
-    <rect x="36" y="120" width="10" height="10" rx="3" transform="rotate(-18 36 120)"/>
-    <rect x="74" y="150" width="12" height="12" rx="3" transform="rotate(18 74 150)"/>
-    <rect x="320" y="124" width="12" height="12" rx="3" transform="rotate(18 320 124)"/>
-    <rect x="342" y="152" width="10" height="10" rx="3" transform="rotate(-16 342 152)"/>
-    <circle cx="120" cy="82" r="5"/>
-    <circle cx="297" cy="84" r="5"/>
-    <circle cx="86" cy="372" r="4"/>
-    <circle cx="334" cy="372" r="4"/>
+    <rect x="34" y="112" width="10" height="10" rx="3" transform="rotate(-16 34 112)"/>
+    <rect x="78" y="128" width="12" height="12" rx="3" transform="rotate(18 78 128)"/>
+    <rect x="316" y="116" width="12" height="12" rx="3" transform="rotate(18 316 116)"/>
+    <rect x="350" y="136" width="10" height="10" rx="3" transform="rotate(-16 350 136)"/>
+    <circle cx="118" cy="62" r="5"/>
+    <circle cx="300" cy="70" r="5"/>
+    <circle cx="96" cy="302" r="4"/>
+    <circle cx="331" cy="305" r="4"/>
   </g>
 
-  <circle cx="210" cy="70" r="22" fill="rgba(255,255,255,0.08)"/>
-  <text x="210" y="82" text-anchor="middle" font-size="38" font-family="Arial, Helvetica, sans-serif">🔥</text>
+  <g>
+    <circle cx="210" cy="56" r="20" fill="rgba(255,255,255,0.08)"/>
+    <text x="210" y="67" text-anchor="middle" font-size="34" font-family="Arial, Helvetica, sans-serif">🔥</text>
+  </g>
 
-  <text x="210" y="185" text-anchor="middle" font-size="88" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
-  <text x="210" y="245" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
+  <text x="210" y="138" text-anchor="middle" font-size="80" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
+  <text x="210" y="196" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
 
-  <image href="${mascotUrl}" x="64" y="260" width="292" height="220" preserveAspectRatio="xMidYMid meet"/>
+  <image href="${mascotUrl}" x="70" y="215" width="280" height="180" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
