@@ -1,0 +1,7 @@
+{
+  "name": "codylingo",
+  "private": true,
+  "scripts": {
+    "dev": "python -m http.server 3000"
+  }
+}
