@@ -31,6 +31,18 @@ function computeStreak(events) {
   return streak;
 }
 
+function wrapUsername(value) {
+  const clean = String(value || 'octocat').trim();
+  if (clean.length <= 14) return [clean];
+
+  const middle = Math.ceil(clean.length / 2);
+  const first = clean.slice(0, middle).trim();
+  const second = clean.slice(middle).trim();
+
+  if (!second) return [clean];
+  return [first, second];
+}
+
 function buildSvg(streak, username) {
   const safeUsername = String(username || 'octocat')
     .replace(/&/g, '&amp;')
@@ -39,6 +51,11 @@ function buildSvg(streak, username) {
     .replace(/"/g, '&quot;');
 
   const mascotUrl = 'https://raw.githubusercontent.com/AhmetBeratKocyigit/CodyLingo/main/public/duo.png';
+  const usernameLines = wrapUsername(safeUsername);
+
+  const usernameText = usernameLines
+    .map((line, index) => `<tspan x="210" dy="${index === 0 ? 0 : 28}">${line}</tspan>`)
+    .join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420" role="img" aria-label="CodyLingo streak widget">
   <defs>
@@ -67,9 +84,13 @@ function buildSvg(streak, username) {
   </g>
 
   <text x="210" y="138" text-anchor="middle" font-size="80" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
-  <text x="210" y="196" text-anchor="middle" font-size="27" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
 
-  <image href="${mascotUrl}" x="65" y="230" width="290" height="185" preserveAspectRatio="xMidYMid meet"/>
+  <text x="210" y="196" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">
+    <tspan x="210" dy="0">Time to code,</tspan>
+    ${usernameText}
+  </text>
+
+  <image href="${mascotUrl}" x="58" y="236" width="304" height="180" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
