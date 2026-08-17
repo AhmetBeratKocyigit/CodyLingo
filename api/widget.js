@@ -43,36 +43,33 @@ function buildSvg(streak, username) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="220" viewBox="0 0 420 220" role="img" aria-label="CodyLingo streak widget">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#52c3eb"/>
-      <stop offset="100%" stop-color="#45d0a7"/>
+      <stop offset="0%" stop-color="#51c4ea"/>
+      <stop offset="100%" stop-color="#44cca7"/>
     </linearGradient>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="rgba(0,0,0,0.12)"/>
-    </filter>
   </defs>
 
-  <rect width="420" height="220" rx="36" fill="url(#bg)"/>
+  <rect width="420" height="220" rx="30" fill="url(#bg)"/>
 
-  <g fill="rgba(255,255,255,0.8)">
-    <rect x="28" y="148" width="10" height="10" rx="2" transform="rotate(-18 28 148)"/>
-    <rect x="64" y="132" width="12" height="12" rx="3" transform="rotate(18 64 132)"/>
-    <rect x="318" y="140" width="10" height="10" rx="2" transform="rotate(12 318 140)"/>
-    <rect x="348" y="128" width="12" height="12" rx="3" transform="rotate(-18 348 128)"/>
-    <circle cx="322" cy="52" r="5"/>
-    <circle cx="110" cy="66" r="5"/>
-    <circle cx="80" cy="186" r="4"/>
-    <circle cx="350" cy="182" r="4"/>
+  <g fill="rgba(255,255,255,0.85)">
+    <rect x="36" y="92" width="10" height="10" rx="3" transform="rotate(-18 36 92)"/>
+    <rect x="79" y="118" width="12" height="12" rx="3" transform="rotate(18 79 118)"/>
+    <rect x="320" y="100" width="12" height="12" rx="3" transform="rotate(18 320 100)"/>
+    <rect x="346" y="118" width="10" height="10" rx="3" transform="rotate(-16 346 118)"/>
+    <circle cx="110" cy="62" r="5"/>
+    <circle cx="302" cy="68" r="5"/>
+    <circle cx="86" cy="180" r="4"/>
+    <circle cx="345" cy="176" r="4"/>
   </g>
 
-  <g filter="url(#softShadow)">
+  <g>
     <circle cx="210" cy="42" r="20" fill="rgba(255,255,255,0.08)"/>
     <text x="210" y="52" text-anchor="middle" font-size="34" font-family="Arial, Helvetica, sans-serif">🔥</text>
   </g>
 
-  <text x="210" y="105" text-anchor="middle" font-size="68" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
-  <text x="210" y="160" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
+  <text x="210" y="110" text-anchor="middle" font-size="82" font-weight="800" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">${streak}</text>
+  <text x="210" y="152" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff" font-family="Arial, Helvetica, sans-serif">Time to code, ${safeUsername}!</text>
 
-  <image href="${mascotUrl}" x="100" y="100" width="220" height="150" preserveAspectRatio="xMidYMid meet"/>
+  <image href="${mascotUrl}" x="90" y="150" width="240" height="120" preserveAspectRatio="xMidYMid meet"/>
 </svg>`;
 }
 
