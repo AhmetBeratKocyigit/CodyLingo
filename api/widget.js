@@ -1,34 +1,58 @@
 function formatDateKey(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return date.toISOString().slice(0, 10);
 }
 
-function computeStreak(events) {
-  if (!Array.isArray(events) || events.length === 0) return 0;
+function computeStreakInfo(events) {
+  if (!Array.isArray(events) || events.length === 0) return { streak: 0, startDateKey: null };
+
   const activityDays = new Set();
-  
+
   events.forEach((event) => {
     if (!event || !event.created_at) return;
     const date = new Date(event.created_at);
-    date.setHours(0, 0, 0, 0);
+    if (Number.isNaN(date.getTime())) return;
     activityDays.add(formatDateKey(date));
   });
 
-  if (activityDays.size === 0) return 0;
+  if (activityDays.size === 0) return { streak: 0, startDateKey: null };
 
-  const sortedDates = Array.from(activityDays).sort();
+  const today = new Date();
+  const todayKey = formatDateKey(today);
+  const yesterday = new Date(Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate() - 1
+  ));
+  const yesterdayKey = formatDateKey(yesterday);
+
+  let cursorKey = null;
+  if (activityDays.has(todayKey)) {
+    cursorKey = todayKey;
+  } else if (activityDays.has(yesterdayKey)) {
+    cursorKey = yesterdayKey;
+  } else {
+    return { streak: 0, startDateKey: null };
+  }
+
   let streak = 0;
-  const cursor = new Date(sortedDates[sortedDates.length - 1]);
-  cursor.setHours(0, 0, 0, 0);
+  let startDateKey = null;
+  let cursor = new Date(`${cursorKey}T00:00:00.000Z`);
 
   while (activityDays.has(formatDateKey(cursor))) {
     streak += 1;
-    cursor.setDate(cursor.getDate() - 1);
+    startDateKey = formatDateKey(cursor);
+    cursor = new Date(Date.UTC(
+      cursor.getUTCFullYear(),
+      cursor.getUTCMonth(),
+      cursor.getUTCDate() - 1
+    ));
   }
 
-  return streak;
+  return { streak, startDateKey };
+}
+
+function computeStreak(events) {
+  return computeStreakInfo(events).streak;
 }
 
 function buildTextLines(safeUsername) {
@@ -104,18 +128,49 @@ function buildSvg(streak, username) {
 </svg>`;
 }
 
-module.exports = async (req, res) => {
-  try {
-    const username = (req.query?.username || 'octocat').toString().trim();
-    
+async function fetchAllPublicEvents(username) {
+  const allEvents = [];
+  let oldestDateKey = null;
+
+  for (let page = 1; ; page += 1) {
     const githubRes = await fetch(
-      `https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=100`,
+      `https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=100&page=${page}`,
       { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'CodyLingo' } }
     );
 
     if (!githubRes.ok) throw new Error('GitHub API error');
 
     const events = await githubRes.json();
+    if (!Array.isArray(events) || events.length === 0) break;
+
+    allEvents.push(...events);
+
+    events.forEach((event) => {
+      if (!event || !event.created_at) return;
+      const date = new Date(event.created_at);
+      if (Number.isNaN(date.getTime())) return;
+
+      const dateKey = formatDateKey(date);
+      if (!oldestDateKey || dateKey < oldestDateKey) oldestDateKey = dateKey;
+    });
+
+    const streakInfo = computeStreakInfo(allEvents);
+    if (streakInfo.streak === 0) break;
+
+    if (streakInfo.startDateKey && oldestDateKey < streakInfo.startDateKey) {
+      break;
+    }
+
+    if (events.length < 100) break;
+  }
+
+  return allEvents;
+}
+
+module.exports = async (req, res) => {
+  try {
+    const username = (req.query?.username || 'octocat').toString().trim();
+    const events = await fetchAllPublicEvents(username);
     const streak = computeStreak(events);
     const svg = buildSvg(streak, username);
 
@@ -125,7 +180,7 @@ module.exports = async (req, res) => {
   } catch (err) {
     const username = (req.query?.username || 'octocat').toString().trim();
     const fallbackSvg = buildSvg(0, username);
-    
+
     res.setHeader('Content-Type', 'image/svg+xml');
     res.setHeader('Cache-Control', 'public, max-age=60');
     res.status(200).end(fallbackSvg);

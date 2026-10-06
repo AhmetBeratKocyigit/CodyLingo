@@ -115,6 +115,8 @@ http://localhost:3000/api/widget?username=octocat
 3. Computes consecutive day streaks ending on today/yesterday.
 4. Generates an adaptive SVG badge containing dynamic text scaling and self-contained Base64 graphics.
 
+The events endpoint is paginated until the active streak is fully determined or no more events are available. GitHub limits this endpoint to events from the past 30 days and up to 300 events, so pagination cannot retrieve a user's complete historical activity.
+
 ---
 
 ## 📄 License
