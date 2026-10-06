@@ -43,18 +43,18 @@ Add the widget directly to your GitHub Profile `README.md`:
 ### Markdown
 
 ```markdown
-[![CodyLingo Streak](https://YOUR-APP.vercel.app/api/widget?username=YOUR_GITHUB_USERNAME)](https://github.com/YOUR_GITHUB_USERNAME)
+[![CodyLingo Streak](https://cody-lingo.vercel.app/api/widget?username=YOUR_GITHUB_USERNAME)](https://github.com/YOUR_GITHUB_USERNAME)
 ```
 
 ### HTML
 
 ```html
 <a href="https://github.com/YOUR_GITHUB_USERNAME">
-  <img src="https://YOUR-APP.vercel.app/api/widget?username=YOUR_GITHUB_USERNAME" alt="CodyLingo Streak" width="380" />
+  <img src="https://cody-lingo.vercel.app/api/widget?username=YOUR_GITHUB_USERNAME" alt="CodyLingo Streak" width="380" />
 </a>
 ```
 
-> **Replace** `YOUR-APP` with your Vercel deployment URL and `YOUR_GITHUB_USERNAME` with your GitHub handle.
+> **Replace** `YOUR_GITHUB_USERNAME` with your GitHub handle.
 
 ---
 
